@@ -1,21 +1,11 @@
 'use client'
 
-import { useCallback, useState } from 'react'
-import {
-  VStack,
-  Heading,
-  Text,
-  Button,
-  ButtonGroup,
-  useBoolean,
-  Box,
-} from '@chakra-ui/react'
+import { Box, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
+import NextLink from 'next/link'
+import { useAppState } from '@/lib/context/app-state'
 
 export default function SolvePuzzle() {
-  const [
-    areThreeLetterWordsAllowed,
-    { on: allowThreeLetterWords, off: restrictThreeLetterWords },
-  ] = useBoolean()
+  const { threeLetterWordsAllowed, toggleThreeLetterWords } = useAppState()
 
   const solidButtonStyles = {
     variant: 'solid',
@@ -45,8 +35,8 @@ export default function SolvePuzzle() {
         <ButtonGroup spacing={2}>
           <Button
             colorScheme="spiroDiscoBall"
-            onClick={allowThreeLetterWords}
-            {...(areThreeLetterWordsAllowed
+            onClick={() => toggleThreeLetterWords(true)}
+            {...(threeLetterWordsAllowed
               ? solidButtonStyles
               : outlineButtonStyles)}
           >
@@ -54,8 +44,8 @@ export default function SolvePuzzle() {
           </Button>
           <Button
             colorScheme="spiroDiscoBall"
-            onClick={restrictThreeLetterWords}
-            {...(areThreeLetterWordsAllowed
+            onClick={() => toggleThreeLetterWords(false)}
+            {...(threeLetterWordsAllowed
               ? outlineButtonStyles
               : solidButtonStyles)}
           >
@@ -63,7 +53,9 @@ export default function SolvePuzzle() {
           </Button>
         </ButtonGroup>
       </Box>
-      <Button colorScheme="seaGreen">Let's go!</Button>
+      <Button as={NextLink} href="/solve-puzzle/results" colorScheme="seaGreen">
+        Let's go!
+      </Button>
     </Box>
   )
 }

@@ -1,12 +1,9 @@
 'use client'
 
-import { useCallback } from 'react'
 import NextLink from 'next/link'
 import { VStack, Heading, Text, Button, Box } from '@chakra-ui/react'
 
 export default function App() {
-  console.log('hello')
-
   return (
     <Box textAlign="center">
       <Heading size="lg" mb={6}>
