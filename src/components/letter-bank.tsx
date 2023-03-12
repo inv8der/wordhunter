@@ -79,7 +79,7 @@ export default function LetterBank() {
             initialValues={{ letterBank: letterBank.join('') }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              updateLetterBank(values.letterBank)
+              updateLetterBank(values.letterBank.toLowerCase())
               onClose()
             }}
           >
