@@ -61,8 +61,8 @@ export default function SolvePuzzleResults() {
             direction="column"
             alignItems="center"
             mx="auto"
-            maxH="calc(6 * 1.5rem)"
-            maxW="calc(3 * 7ch)"
+            maxH="calc(10 * 1.5rem)"
+            maxW="calc(4 * 7ch)"
             flexWrap="wrap"
             textAlign="left"
           >
