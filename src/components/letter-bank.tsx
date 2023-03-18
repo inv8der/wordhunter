@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef } from 'react'
 import * as yup from 'yup'
 import { Field, Form, Formik } from 'formik'
 import type { FieldProps } from 'formik'
@@ -25,12 +26,13 @@ const validationSchema = yup.object({
   letterBank: yup
     .string()
     .required('I think you forgot something...')
-    .matches(/^[a-zA-Z]+$/, 'No numbers or special characters allowed!')
+    .matches(/^\s*[a-zA-Z]+\s*$/, 'No numbers or special characters allowed!')
     .min(5, 'Must be between 5 and 7 letters')
     .max(7, 'Must be between 5 and 7 letters'),
 })
 
 export default function LetterBank() {
+  const inputRef = useRef<HTMLInputElement | null>()
   const { letterBank, updateLetterBank } = useAppState()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -79,18 +81,31 @@ export default function LetterBank() {
             initialValues={{ letterBank: letterBank.join('') }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              updateLetterBank(values.letterBank.toLowerCase())
+              updateLetterBank(values.letterBank.trim())
               onClose()
             }}
           >
             {() => (
               <Form>
-                <DrawerHeader>What letters are available?</DrawerHeader>
+                <DrawerHeader>Update letter bank</DrawerHeader>
                 <DrawerBody>
                   <Field name="letterBank">
                     {({ field, meta }: FieldProps) => (
                       <FormControl isInvalid={!!meta.error && meta.touched}>
-                        <Input {...field} placeholder="" />
+                        <Input
+                          {...field}
+                          placeholder=""
+                          autoComplete="off"
+                          autoCorrect="off"
+                          onFocus={() => {
+                            inputRef.current?.select()
+                          }}
+                          onChange={(e) => {
+                            e.target.value = e.target.value.toLowerCase()
+                            field.onChange(e)
+                          }}
+                          ref={(ref) => (inputRef.current = ref)}
+                        />
                         <FormErrorMessage>{meta.error}</FormErrorMessage>
                       </FormControl>
                     )}
@@ -101,7 +116,7 @@ export default function LetterBank() {
                     Cancel
                   </Button>
                   <Button type="submit" colorScheme="seaGreen">
-                    Update
+                    Confirm
                   </Button>
                 </DrawerFooter>
               </Form>
