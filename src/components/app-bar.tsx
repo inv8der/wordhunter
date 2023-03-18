@@ -16,7 +16,7 @@ export default function AppBar() {
       as="header"
       className="app-bar"
       justify="center"
-      position="sticky"
+      position="fixed"
       top={0}
       zIndex={1000}
       bgColor="white"

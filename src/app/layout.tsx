@@ -20,9 +20,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <CacheProvider>
           <ChakraProvider theme={theme}>
             <AppStateProvider>
-              <Container as={VStack} p={0} h="100vh" maxW="container.md">
+              <Container as={VStack} p={0} maxW="container.md">
                 <AppBar />
-                <Box as="main" flex={1} w="100%">
+                <Box as="main" w="100%" pt={['56px', null, '60px']} pb="65px">
                   <Container>{props.children}</Container>
                 </Box>
                 <LetterBank />

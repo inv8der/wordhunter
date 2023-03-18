@@ -37,7 +37,7 @@ export default function LetterBank() {
   return (
     <Center
       className="letter-bank"
-      position="sticky"
+      position="fixed"
       bottom={0}
       w="100%"
       bgColor="white"

@@ -86,8 +86,6 @@ body {
 }
 
 body {
-  padding-bottom: env(safe-area-inset-bottom);
-
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
