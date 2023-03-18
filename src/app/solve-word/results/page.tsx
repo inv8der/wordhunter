@@ -15,6 +15,20 @@ export default function SolveWordResults() {
     }
   }, [])
 
+  const [cols, rows] = useMemo(() => {
+    const numSolutions = solutions.length
+    switch (true) {
+      case numSolutions <= 20:
+        return [2, Math.ceil(numSolutions / 2)]
+      case numSolutions <= 30:
+        return [3, Math.ceil(numSolutions / 3)]
+      case numSolutions <= 40:
+        return [4, Math.ceil(numSolutions / 4)]
+      default:
+        return [5, Math.ceil(numSolutions / 5)]
+    }
+  }, [solutions.length])
+
   useEffect(() => {
     if (wordhunter) {
       const message = {
@@ -60,10 +74,9 @@ export default function SolveWordResults() {
           </Text>
           <Flex
             direction="column"
-            alignItems="center"
             mx="auto"
-            maxH="calc(10 * 1.5rem)"
-            maxW="calc(4 * 7ch)"
+            maxH={`calc(${rows} * 1.5rem)`}
+            maxW={`calc(${cols} * 7ch)`}
             flexWrap="wrap"
             textAlign="left"
           >
