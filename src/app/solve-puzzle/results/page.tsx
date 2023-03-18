@@ -1,13 +1,26 @@
 'use client'
 
 import { useMemo, useEffect, useState } from 'react'
-import { Box, Heading, Text, Flex, Spinner } from '@chakra-ui/react'
+import {
+  Box,
+  Heading,
+  Text,
+  Flex,
+  Spinner,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import { useAppState } from '@/lib/context/app-state'
 
 export default function SolvePuzzleResults() {
   const [isLoading, setIsLoading] = useState(true)
   const [solutions, setSolutions] = useState<string[]>([])
   const { letterBank, threeLetterWordsAllowed } = useAppState()
+
+  const spinnerColor = useColorModeValue(
+    'spiroDiscoBall.500',
+    'spiroDiscoBall.200'
+  )
+  const spinnerEmptyColor = useColorModeValue('gray.200', 'whiteAlpha.300')
 
   const wordhunter = useMemo(() => {
     if (global.Worker) {
@@ -55,8 +68,8 @@ export default function SolvePuzzleResults() {
           mt="20vh"
           thickness="4px"
           speed="0.65s"
-          emptyColor="gray.200"
-          color="spiroDiscoBall.500"
+          emptyColor={spinnerEmptyColor}
+          color={spinnerColor}
           size="xl"
         />
       ) : (

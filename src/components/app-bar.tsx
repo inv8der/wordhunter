@@ -2,7 +2,13 @@
 
 import { useRouter, usePathname } from 'next/navigation'
 import NextLink from 'next/link'
-import { Flex, Spacer, Box, IconButton } from '@chakra-ui/react'
+import {
+  Flex,
+  Spacer,
+  Box,
+  IconButton,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import { RiArrowLeftLine, RiRestartLine } from 'react-icons/ri'
 import Logo from './logo'
 
@@ -10,6 +16,8 @@ export default function AppBar() {
   const router = useRouter()
   const pathname = usePathname()
   const isIndexPage = pathname === '/'
+
+  const bgColor = useColorModeValue('white', 'gray.800')
 
   return (
     <Flex
@@ -19,7 +27,7 @@ export default function AppBar() {
       position="fixed"
       top={0}
       zIndex={1000}
-      bgColor="white"
+      bgColor={bgColor}
       w="100%"
       p={2}
     >

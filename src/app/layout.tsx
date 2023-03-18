@@ -2,7 +2,13 @@
 
 import './globals.css'
 import { CacheProvider } from '@chakra-ui/next-js'
-import { ChakraProvider, Box, Container, VStack } from '@chakra-ui/react'
+import {
+  ChakraProvider,
+  ColorModeScript,
+  Box,
+  Container,
+  VStack,
+} from '@chakra-ui/react'
 import { AppStateProvider } from '@/lib/context/app-state'
 import theme from '@/lib/theme'
 import LetterBank from '@/components/letter-bank'
@@ -17,6 +23,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <CacheProvider>
           <ChakraProvider theme={theme}>
             <AppStateProvider>

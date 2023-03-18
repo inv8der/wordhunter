@@ -2,8 +2,7 @@
 
 import { useRef } from 'react'
 import * as yup from 'yup'
-import { Field, Form, Formik } from 'formik'
-import type { FieldProps } from 'formik'
+import { Field, Form, Formik, type FieldProps } from 'formik'
 import {
   Center,
   HStack,
@@ -19,6 +18,7 @@ import {
   FormControl,
   FormErrorMessage,
   useDisclosure,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { useAppState } from '@/lib/context/app-state'
 
@@ -36,13 +36,23 @@ export default function LetterBank() {
   const { letterBank, updateLetterBank } = useAppState()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const bgColor = useColorModeValue('white', 'gray.800')
+  const hoverBgColor = useColorModeValue('gray.100', 'whiteAlpha.200')
+  const activeBgColor = useColorModeValue('gray.200', 'whiteAlpha.300')
+  const letterBgColor = useColorModeValue(
+    'metallicYellow.500',
+    'metallicYellow.200'
+  )
+  const letterBorderColor = useColorModeValue('gray.200', 'whiteAlpha.300')
+  const letterColor = useColorModeValue('white', 'gray.800')
+
   return (
     <Center
       className="letter-bank"
       position="fixed"
       bottom={0}
       w="100%"
-      bgColor="white"
+      bgColor={bgColor}
       zIndex={1000}
     >
       <HStack
@@ -53,10 +63,10 @@ export default function LetterBank() {
         cursor="pointer"
         borderRadius="0.375rem"
         _hover={{
-          bgColor: 'gray.100',
+          bgColor: hoverBgColor,
         }}
         _active={{
-          bgColor: 'gray.200',
+          bgColor: activeBgColor,
         }}
       >
         {letterBank.map((letter, i) => (
@@ -64,9 +74,11 @@ export default function LetterBank() {
             key={`${letter}-${i}`}
             size={10}
             textTransform="uppercase"
-            border="2px solid black"
+            border="2px solid"
+            borderColor={letterBorderColor}
             borderRadius={4}
-            backgroundColor="metallicYellow.500"
+            bgColor={letterBgColor}
+            color={letterColor}
             fontWeight={600}
           >
             {letter}

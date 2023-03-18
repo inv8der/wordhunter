@@ -1,6 +1,10 @@
 import { extendTheme } from '@chakra-ui/react'
 
 export default extendTheme({
+  config: {
+    initialColorMode: 'system',
+    useSystemColorMode: true,
+  },
   colors: {
     lightMint: {
       '50': '#E5FFF4',

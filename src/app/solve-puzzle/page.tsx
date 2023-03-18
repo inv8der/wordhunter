@@ -1,23 +1,43 @@
 'use client'
 
-import { Box, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
+import {
+  Box,
+  Heading,
+  Text,
+  Button,
+  ButtonGroup,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { useAppState } from '@/lib/context/app-state'
 
 export default function SolvePuzzle() {
   const { threeLetterWordsAllowed, toggleThreeLetterWords } = useAppState()
 
+  const solidBorderColor = useColorModeValue(
+    'spiroDiscoBall.500',
+    'spiroDiscoBall.200'
+  )
+  const solidHoverColor = useColorModeValue(
+    'spiroDiscoBall.600',
+    'spiroDiscoBall.300'
+  )
+  const solidActiveColor = useColorModeValue(
+    'spiroDiscoBall.700',
+    'spiroDiscoBall.400'
+  )
+
   const solidButtonStyles = {
     variant: 'solid',
     border: '1px solid',
-    borderColor: 'spiroDiscoBall.400',
+    borderColor: solidBorderColor,
     _hover: {
-      bgColor: 'spiroDiscoBall.600',
-      borderColor: 'spiroDiscoBall.600',
+      bgColor: solidHoverColor,
+      borderColor: solidHoverColor,
     },
     _active: {
-      bgColor: 'spiroDiscoBall.700',
-      borderColor: 'spiroDiscoBall.700',
+      bgColor: solidActiveColor,
+      borderColor: solidActiveColor,
     },
   }
 
