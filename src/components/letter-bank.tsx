@@ -43,8 +43,7 @@ export default function LetterBank() {
     'metallicYellow.500',
     'metallicYellow.200'
   )
-  const letterBorderColor = useColorModeValue('gray.200', 'whiteAlpha.300')
-  const letterColor = useColorModeValue('white', 'gray.800')
+  const letterColor = useColorModeValue('black', 'gray.800')
 
   return (
     <Center
@@ -75,7 +74,7 @@ export default function LetterBank() {
             size={10}
             textTransform="uppercase"
             border="2px solid"
-            borderColor={letterBorderColor}
+            borderColor={letterColor}
             borderRadius={4}
             bgColor={letterBgColor}
             color={letterColor}
