@@ -96,11 +96,13 @@ export default function SolveWord() {
                 placeholder="?"
                 variant="outline"
                 iconSize="0"
+                textTransform="uppercase"
                 w={10}
                 h={10}
                 sx={{
                   padding: 0,
                   textAlign: 'center',
+                  textAlignLast: 'center',
                 }}
               >
                 {letterBank.map((letter, j) => (
@@ -109,7 +111,7 @@ export default function SolveWord() {
                     value={letter}
                     disabled={!availableLetters.includes(letter)}
                   >
-                    {letter}
+                    {letter.toUpperCase()}
                   </option>
                 ))}
               </Select>
