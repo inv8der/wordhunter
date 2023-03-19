@@ -14,6 +14,9 @@ import {
   SliderThumb,
   SliderMark,
   Select,
+  Tooltip,
+  useBoolean,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { useAppState } from '@/lib/context/app-state'
@@ -26,6 +29,14 @@ export default function SolveWord() {
     updateWordLength,
     updateWordPattern,
   } = useAppState()
+
+  const [sliderTooltipIsOpen, { on: showTooltip, off: hideTooltip }] =
+    useBoolean()
+  const tooltipBgColor = useColorModeValue(
+    'spiroDiscoBall.500',
+    'spiroDiscoBall.200'
+  )
+  const tooltipColor = useColorModeValue('white', 'gray.800')
 
   const minLetters = 3
   const maxLetters = letterBank.length
@@ -68,6 +79,8 @@ export default function SolveWord() {
             max={maxLetters}
             defaultValue={wordLength}
             onChange={updateWordLength}
+            onChangeStart={showTooltip}
+            onChangeEnd={hideTooltip}
           >
             <SliderMark value={minLetters} ml="-2.5ch" mt="-0.75rem">
               {minLetters}
@@ -78,7 +91,18 @@ export default function SolveWord() {
             <SliderTrack>
               <SliderFilledTrack />
             </SliderTrack>
-            <SliderThumb />
+            <Tooltip
+              bgColor={tooltipBgColor}
+              color={tooltipColor}
+              hasArrow
+              placement="top"
+              isOpen={sliderTooltipIsOpen}
+              label={wordLength}
+              gutter={12}
+              fontSize="md"
+            >
+              <SliderThumb boxSize={4} />
+            </Tooltip>
           </Slider>
         </section>
         <section>
