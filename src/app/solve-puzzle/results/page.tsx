@@ -30,16 +30,18 @@ export default function SolvePuzzleResults() {
 
   const [cols, rows] = useMemo(() => {
     const numSolutions = solutions.length
-    switch (true) {
-      case numSolutions <= 20:
-        return [2, Math.ceil(numSolutions / 2)]
-      case numSolutions <= 30:
-        return [3, Math.ceil(numSolutions / 3)]
-      case numSolutions <= 40:
-        return [4, Math.ceil(numSolutions / 4)]
-      default:
-        return [5, Math.ceil(numSolutions / 5)]
+    const maxR = solutions.length < 40 ? 10 : 20
+    let c = 1
+    let r = 1
+
+    for (c = 1; c <= 5; c += 1) {
+      r = Math.ceil(numSolutions / c)
+      if (r <= maxR) {
+        break
+      }
     }
+
+    return [c, r]
   }, [solutions.length])
 
   useEffect(() => {
