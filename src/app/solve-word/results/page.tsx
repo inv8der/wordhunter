@@ -5,11 +5,11 @@ import {
   Box,
   Heading,
   Text,
-  Flex,
   Spinner,
   useColorModeValue,
 } from '@chakra-ui/react'
 import { useAppState } from '@/lib/context/app-state'
+import SolutionList from '@/components/solution-list'
 
 export default function SolveWordResults() {
   const [isLoading, setIsLoading] = useState(true)
@@ -87,20 +87,7 @@ export default function SolveWordResults() {
               <>{solutions.length} words found that match!</>
             )}
           </Text>
-          <Flex
-            direction="column"
-            mx="auto"
-            maxH={`calc(${rows} * 1.5rem)`}
-            maxW={`calc(${cols} * 7ch)`}
-            flexWrap="wrap"
-            textAlign="left"
-          >
-            {solutions.map((word) => (
-              <Box key={word} w="7ch">
-                {word}
-              </Box>
-            ))}
-          </Flex>
+          <SolutionList items={solutions} />
         </>
       )}
     </Box>
