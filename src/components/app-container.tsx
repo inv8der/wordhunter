@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react'
 
 export default function AppContainer(props: { children: React.ReactNode }) {
-  const [shouldRender, setShouldRender] = useState(false)
+  const [visibility, setVisibility] = useState<'visible' | 'hidden'>('hidden')
 
   useEffect(() => {
-    setShouldRender(true)
+    setVisibility('visible')
   }, [])
 
-  return shouldRender ? <>{props.children}</> : null
+  return <div style={{ visibility }}>{props.children}</div>
 }
