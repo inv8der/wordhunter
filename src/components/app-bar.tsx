@@ -2,14 +2,9 @@
 
 import { useRouter, usePathname } from 'next/navigation'
 import NextLink from 'next/link'
-import {
-  Flex,
-  Spacer,
-  Box,
-  IconButton,
-  useColorModeValue,
-} from '@chakra-ui/react'
 import { RiArrowLeftLine, RiRestartLine } from 'react-icons/ri'
+import Spacer from '@/ui/layout/spacer'
+import IconButton from '@/ui/forms/icon-button'
 import Logo from './logo'
 
 export default function AppBar() {
@@ -17,21 +12,9 @@ export default function AppBar() {
   const pathname = usePathname()
   const isIndexPage = pathname === '/'
 
-  const bgColor = useColorModeValue('white', 'gray.800')
-
   return (
-    <Flex
-      as="header"
-      className="app-bar"
-      justify="center"
-      position="fixed"
-      top={0}
-      zIndex={1000}
-      bgColor={bgColor}
-      w="100%"
-      p={2}
-    >
-      <Flex flex={1} justifyContent="flex-start">
+    <header className="flex justify-center fixed top-0 z-[1000] w-full p-2 bg-white dark:bg-gray-800">
+      <div className="flex-1 flex justify-start">
         {!isIndexPage && (
           <IconButton
             onClick={router.back}
@@ -41,24 +24,24 @@ export default function AppBar() {
             size="sm"
           />
         )}
-      </Flex>
+      </div>
       <Spacer />
-      <Box flex={0}>
+      <div className="flex-0">
         <Logo />
-      </Box>
+      </div>
       <Spacer />
-      <Flex flex={1} justifyContent="flex-end">
+      <div className="flex-1 flex justify-end">
         {!isIndexPage && (
-          <IconButton
-            as={NextLink}
-            href="/"
-            aria-label="restart"
-            icon={<RiRestartLine fontSize={18} />}
-            variant="ghost"
-            size="sm"
-          />
+          <NextLink href="/" passHref legacyBehavior>
+            <IconButton
+              aria-label="restart"
+              icon={<RiRestartLine fontSize={18} />}
+              variant="ghost"
+              size="sm"
+            />
+          </NextLink>
         )}
-      </Flex>
-    </Flex>
+      </div>
+    </header>
   )
 }

@@ -1,26 +1,15 @@
 'use client'
 
 import { useMemo, useEffect, useState } from 'react'
-import {
-  Box,
-  Heading,
-  Text,
-  Spinner,
-  useColorModeValue,
-} from '@chakra-ui/react'
 import { useAppState } from '@/lib/context/app-state'
+import Heading from '@/ui/typography/heading'
+import Spinner from '@/ui/feedback/spinner'
 import SolutionList from '@/components/solution-list'
 
 export default function SolveWordResults() {
   const [isLoading, setIsLoading] = useState(true)
   const [solutions, setSolutions] = useState<string[]>([])
   const { letterBank, wordPattern } = useAppState()
-
-  const spinnerColor = useColorModeValue(
-    'spiroDiscoBall.500',
-    'spiroDiscoBall.200'
-  )
-  const spinnerEmptyColor = useColorModeValue('gray.200', 'whiteAlpha.300')
 
   const wordhunter = useMemo(() => {
     if (global.Worker) {
@@ -65,31 +54,30 @@ export default function SolveWordResults() {
   }, [])
 
   return (
-    <Box textAlign="center" w="100%">
+    <div className="w-full text-center">
       {isLoading ? (
         <Spinner
-          mt="20vh"
           thickness="4px"
           speed="0.65s"
-          emptyColor={spinnerEmptyColor}
-          color={spinnerColor}
+          color="spiroDiscoBall"
           size="xl"
+          className="mt-[20vh]"
         />
       ) : (
         <>
-          <Heading size="lg" mb={6}>
+          <Heading size="lg" className="mb-6">
             Possible solutions
           </Heading>
-          <Text as="p" mb={6}>
+          <p className="mb-6">
             {solutions.length === 1 ? (
               <>{solutions.length} word found that matches!</>
             ) : (
               <>{solutions.length} words found that match!</>
             )}
-          </Text>
+          </p>
           <SolutionList items={solutions} />
         </>
       )}
-    </Box>
+    </div>
   )
 }

@@ -1,7 +1,4 @@
-'use client'
-
 import { useMemo } from 'react'
-import { Flex, Box } from '@chakra-ui/react'
 
 interface Props {
   items: string[]
@@ -24,20 +21,21 @@ export default function SolutionList({ items }: Props) {
     return [c, r]
   }, [items.length])
 
+  const cssVars = {
+    '--solution-list-rows': rows,
+    '--solution-list-cols': cols,
+  } as React.CSSProperties
+
   return (
-    <Flex
-      direction="column"
-      mx="auto"
-      maxH={`calc(${rows} * 1.5rem)`}
-      maxW={`calc(${cols} * 7ch)`}
-      flexWrap="wrap"
-      textAlign="left"
+    <div
+      className="flex flex-col flex-wrap mx-auto text-left max-h-[calc(var(--solution-list-rows)_*_1.5rem)] max-w-[calc(var(--solution-list-cols)_*_7ch)]"
+      style={cssVars}
     >
       {items.map((word) => (
-        <Box key={word} w="7ch">
+        <div key={word} className="w-[7ch]">
           {word}
-        </Box>
+        </div>
       ))}
-    </Flex>
+    </div>
   )
 }

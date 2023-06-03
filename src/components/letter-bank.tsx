@@ -3,24 +3,21 @@
 import { useRef } from 'react'
 import * as yup from 'yup'
 import { Field, Form, Formik, type FieldProps } from 'formik'
-import {
-  Center,
-  HStack,
-  Square,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  Input,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  useDisclosure,
-  useColorModeValue,
-} from '@chakra-ui/react'
 import { useAppState } from '@/lib/context/app-state'
+import useDisclosure from '@/lib/hooks/use-disclosure'
+import Button from '@/ui/forms/button'
+import Input from '@/ui/forms/input'
+import FormControl from '@/ui/forms/form-control'
+import FormErrorMessage from '@/ui/forms/form-error'
+import Stack from '@/ui/layout/stack'
+import Center from '@/ui/layout/center'
+import Square from '@/ui/layout/square'
+import Drawer from '@/ui/overlay/drawer'
+import DrawerOverlay from '@/ui/overlay/drawer-overlay'
+import DrawerContent from '@/ui/overlay/drawer-content'
+import DrawerHeader from '@/ui/overlay/drawer-header'
+import DrawerBody from '@/ui/overlay/drawer-body'
+import DrawerFooter from '@/ui/overlay/drawer-footer'
 
 const validationSchema = yup.object({
   letterBank: yup
@@ -32,59 +29,28 @@ const validationSchema = yup.object({
 })
 
 export default function LetterBank() {
-  const inputRef = useRef<HTMLInputElement | null>()
+  const inputRef = useRef<HTMLInputElement>(null)
   const { letterBank, updateLetterBank } = useAppState()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const bgColor = useColorModeValue('white', 'gray.800')
-  const hoverBgColor = useColorModeValue('gray.100', 'whiteAlpha.200')
-  const activeBgColor = useColorModeValue('gray.200', 'whiteAlpha.300')
-  const letterBgColor = useColorModeValue(
-    'metallicYellow.500',
-    'metallicYellow.200'
-  )
-  const letterColor = useColorModeValue('black', 'gray.800')
-
   return (
-    <Center
-      className="letter-bank"
-      position="fixed"
-      bottom={0}
-      w="100%"
-      bgColor={bgColor}
-      zIndex={1000}
-    >
-      <HStack
+    <Center className="fixed bottom-0 w-full bg-white dark:bg-gray-800 z-[1000]">
+      <Stack
+        className="justify-center p-3 rounded-md cursor-pointer hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-whiteAlpha-200 dark:active-whiteAlpha-300"
+        direction="horizontal"
         spacing={3}
         onClick={onOpen}
-        justify="center"
-        p={3}
-        cursor="pointer"
-        borderRadius="0.375rem"
-        _hover={{
-          bgColor: hoverBgColor,
-        }}
-        _active={{
-          bgColor: activeBgColor,
-        }}
       >
         {letterBank.map((letter, i) => (
           <Square
             key={`${letter}-${i}`}
             size={10}
-            textTransform="uppercase"
-            border="2px solid"
-            borderColor={letterColor}
-            borderRadius={4}
-            bgColor={letterBgColor}
-            color={letterColor}
-            fontWeight={600}
+            className="uppercase border-2 border-solid border-black dark:border-gray-800 rounded-[4px] bg-metallicYellow-500 dark:bg-metallicYellow-200 text-black dark:text-gray-800 font-semibold"
           >
             {letter}
           </Square>
         ))}
-      </HStack>
-
+      </Stack>
       <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
@@ -115,7 +81,7 @@ export default function LetterBank() {
                             e.target.value = e.target.value.toLowerCase()
                             field.onChange(e)
                           }}
-                          ref={(ref) => (inputRef.current = ref)}
+                          ref={inputRef}
                         />
                         <FormErrorMessage>{meta.error}</FormErrorMessage>
                       </FormControl>
@@ -123,10 +89,10 @@ export default function LetterBank() {
                   </Field>
                 </DrawerBody>
                 <DrawerFooter>
-                  <Button variant="outline" mr={3} onClick={onClose}>
+                  <Button className="mr-3" variant="outline" onClick={onClose}>
                     Cancel
                   </Button>
-                  <Button type="submit" colorScheme="seaGreen">
+                  <Button type="submit" color="seaGreen">
                     Confirm
                   </Button>
                 </DrawerFooter>

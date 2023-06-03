@@ -1,25 +1,20 @@
 'use client'
 
 import { useCallback, useMemo } from 'react'
-import {
-  HStack,
-  VStack,
-  Heading,
-  Text,
-  Button,
-  Box,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderMark,
-  Select,
-  Tooltip,
-  useBoolean,
-  useColorModeValue,
-} from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { useAppState } from '@/lib/context/app-state'
+import useBoolean from '@/lib/hooks/use-boolean'
+import Heading from '@/ui/typography/heading'
+import Stack from '@/ui/layout/stack'
+import Square from '@/ui/layout/square'
+import Button from '@/ui/forms/button'
+import Select from '@/ui/forms/select'
+import Slider from '@/ui/forms/slider'
+import SliderTrack from '@/ui/forms/slider-track'
+import SliderFilledTrack from '@/ui/forms/slider-filled-track'
+import SliderThumb from '@/ui/forms/slider-thumb'
+import SliderMark from '@/ui/forms/slider-mark'
+import Tooltip from '@/ui/overlay/tooltip'
 
 export default function SolveWord() {
   const {
@@ -32,11 +27,6 @@ export default function SolveWord() {
 
   const [sliderTooltipIsOpen, { on: showTooltip, off: hideTooltip }] =
     useBoolean()
-  const tooltipBgColor = useColorModeValue(
-    'spiroDiscoBall.500',
-    'spiroDiscoBall.200'
-  )
-  const tooltipColor = useColorModeValue('white', 'gray.800')
 
   const minLetters = 3
   const maxLetters = letterBank.length
@@ -66,86 +56,77 @@ export default function SolveWord() {
   )
 
   return (
-    <Box textAlign="center">
-      <Heading size="lg" mb={6}>
+    <div className="text-center">
+      <Heading size="lg" className="mb-6">
         Stuck on a word?
       </Heading>
-      <VStack spacing={6} mb={16}>
+      <Stack direction="vertical" spacing={6} className="mb-16">
         <section>
-          <Text marginBottom={2}>How many letters is this word?</Text>
+          <p className="mb-2">How many letters is this word?</p>
           <Slider
-            colorScheme="spiroDiscoBall"
             min={3}
             max={maxLetters}
+            size="lg"
             defaultValue={wordLength}
             onChange={updateWordLength}
             onChangeStart={showTooltip}
             onChangeEnd={hideTooltip}
           >
-            <SliderMark value={minLetters} ml="-2.5ch" mt="-0.75rem">
+            <SliderMark value={minLetters} className="ml-[-2.5ch] -mt-5">
               {minLetters}
             </SliderMark>
-            <SliderMark value={maxLetters} ml="2ch" mt="-0.75rem">
+            <SliderMark value={maxLetters} className="ml-[2ch] -mt-5">
               {maxLetters}
             </SliderMark>
             <SliderTrack>
               <SliderFilledTrack />
             </SliderTrack>
             <Tooltip
-              bgColor={tooltipBgColor}
-              color={tooltipColor}
+              color="spiroDiscoBall"
               hasArrow
               placement="top"
               isOpen={sliderTooltipIsOpen}
               label={wordLength}
-              gutter={12}
-              fontSize="md"
+              className="text-base"
             >
-              <SliderThumb boxSize={4} />
+              <SliderThumb />
             </Tooltip>
           </Slider>
         </section>
         <section>
-          <Text marginBottom={2}>
+          <p className="mb-2">
             If you know the position of any of the letters, enter them below.
             This will help narrow down the results.
-          </Text>
-          <HStack spacing={3} justify="center">
+          </p>
+          <Stack direction="horizontal" spacing={3} className="justify-center">
             {wordPattern.map((token, i) => (
-              <Select
-                key={`${token}-${i}`}
-                data-index={i}
-                value={token}
-                onChange={handleUpdatePattern}
-                placeholder="?"
-                variant="outline"
-                iconSize="0"
-                textTransform="uppercase"
-                w={10}
-                h={10}
-                sx={{
-                  padding: 0,
-                  textAlign: 'center',
-                  textAlignLast: 'center',
-                }}
-              >
-                {letterBank.map((letter, j) => (
-                  <option
-                    key={`${letter}-${j}`}
-                    value={letter}
-                    disabled={!availableLetters.includes(letter)}
-                  >
-                    {letter.toUpperCase()}
-                  </option>
-                ))}
-              </Select>
+              <Square key={`${token}-${i}`} size={10}>
+                <Select
+                  data-index={i}
+                  value={token}
+                  onChange={handleUpdatePattern}
+                  placeholder="?"
+                  hideIcon
+                  className="uppercase text-center p-0"
+                >
+                  {letterBank.map((letter, j) => (
+                    <option
+                      key={`${letter}-${j}`}
+                      value={letter}
+                      disabled={!availableLetters.includes(letter)}
+                    >
+                      {letter.toUpperCase()}
+                    </option>
+                  ))}
+                </Select>
+              </Square>
             ))}
-          </HStack>
+          </Stack>
         </section>
-      </VStack>
-      <Button as={NextLink} href="/solve-word/results" colorScheme="seaGreen">
-        Let's go!
-      </Button>
-    </Box>
+      </Stack>
+      <NextLink href="/solve-word/results" passHref legacyBehavior>
+        <Button color="seaGreen">Let&apos;s go!</Button>
+      </NextLink>
+    </div>
   )
 }

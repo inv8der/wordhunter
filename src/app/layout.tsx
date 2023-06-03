@@ -1,7 +1,6 @@
 import './globals.css'
 
 import { AppStateProvider } from '@/lib/context/app-state'
-import AppContainer from '@/components/app-container'
 import LetterBank from '@/components/letter-bank'
 import AppBar from '@/components/app-bar'
 import Main from '@/components/main'
@@ -17,11 +16,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       <body>
         <ThemeProvider>
           <AppStateProvider>
-            <AppContainer>
-              <AppBar />
-              <Main>{props.children}</Main>
-              <LetterBank />
-            </AppContainer>
+            <AppBar />
+            <Main>{props.children}</Main>
+            <LetterBank />
           </AppStateProvider>
         </ThemeProvider>
       </body>

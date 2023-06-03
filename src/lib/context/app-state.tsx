@@ -7,7 +7,7 @@ import {
   useMemo,
   useCallback,
 } from 'react'
-import { useBoolean } from '@chakra-ui/react'
+import useBoolean from '../hooks/use-boolean'
 
 interface AppStateContextValue {
   letterBank: string[]
@@ -81,6 +81,7 @@ export function AppStateProvider(props: { children: React.ReactNode }) {
       wordPattern,
       threeLetterWordsAllowed,
       updateWordLength,
+      toggleThreeLetterWords,
       reset,
     ]
   )
