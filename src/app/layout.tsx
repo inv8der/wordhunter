@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className=" bg-white text-gray-800 dark:bg-gray-800 dark:text-whiteAlpha-900">
         <AppStateProvider>
           <AppBar />
           <Main>{props.children}</Main>
