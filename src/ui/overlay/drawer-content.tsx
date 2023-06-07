@@ -4,15 +4,27 @@ import { useDrawer } from './drawer'
 interface DrawerContentProps {}
 
 const transitionStyles = {
-  top: {},
-  right: {},
+  top: {
+    initial: '',
+    open: '',
+    close: '',
+  },
+  right: {
+    initial: '',
+    open: '',
+    close: '',
+  },
   bottom: {
     initial:
       'fixed bottom-0 left-0 right-0 transition-transform translate-y-full',
     open: 'translate-y-0',
     close: 'translate-y-full',
   },
-  left: {},
+  left: {
+    initial: '',
+    open: '',
+    close: '',
+  },
 }
 
 export default function DrawerContent({
