@@ -1,6 +1,4 @@
-import baseColors from 'tailwindcss/colors'
-
-// console.log(baseColors)
+// import baseColors from 'tailwindcss/colors'
 
 const colors = {
   /** Base colors copied from the default Chakra-UI theme */
@@ -227,7 +225,5 @@ const colors = {
     900: '#322601',
   },
 }
-
-type C = keyof typeof colors
 
 export default colors
