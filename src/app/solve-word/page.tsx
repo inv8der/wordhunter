@@ -107,7 +107,7 @@ export default function SolveWord() {
                   onChange={handleUpdatePattern}
                   placeholder="?"
                   hideIcon
-                  className="uppercase text-center p-0"
+                  className="uppercase text-center p-0 [text-align-last:center]"
                 >
                   {letterBank.map((letter, j) => (
                     <option
